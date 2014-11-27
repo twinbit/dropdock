@@ -1,4 +1,4 @@
-FROM stackbrew/ubuntu:14.04
+FROM ubuntu:14.04
 MAINTAINER Paolo Mainardi <paolo@twinbit.it>
 ENV REFRESHED_AT 2014-11-24
 
