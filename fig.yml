@@ -1,0 +1,16 @@
+php:
+  build: containers/php
+  volumes:
+    - www:/srv/http/www
+    - log:/log
+nginx:
+  build: containers/nginx
+  links:
+    - php
+  volumes:
+    - log:/log
+    - www:/srv/http/www
+  command: nginx
+  ports:
+    - "8000:80"
+
