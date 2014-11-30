@@ -1,8 +1,43 @@
-FROM mariadb:10.0.15
+FROM ubuntu:14.04
 MAINTAINER Paolo Mainardi <paolo@twinbit.it>
-ENV REFRESHED_AT 2014-11-24
-ENV MYSQL_ROOT_PASSWORD root
+
+# Install packages
+ENV DEBIAN_FRONTEND noninteractive
+RUN apt-get update && \
+  apt-get -yq install mysql-server-5.6 pwgen && \
+  rm -rf /var/lib/apt/lists/*
+
+# Remove pre-installed database
+RUN rm -rf /var/lib/mysql/*
+
+# Add MySQL configuration
+ADD conf/my.cnf /etc/mysql/conf.d/my.cnf
+ADD conf/mysqld_charset.cnf /etc/mysql/conf.d/mysqld_charset.cnf
+
+# Add MySQL scripts
+ADD scripts/import_sql.sh /import_sql.sh
+ADD scripts/run.sh /run.sh
+RUN chmod 755 /*.sh
+
+# Exposed ENV
 ENV MYSQL_USER twinbit
-ENV MYSQL_PASSWORD twinbit
-ENV MYSQL_DATABASE twinbit
+ENV MYSQL_PASS twinbit
+
+# Replication ENV
+ENV REPLICATION_MASTER **False**
+ENV REPLICATION_SLAVE **False**
+ENV REPLICATION_USER replica
+ENV REPLICATION_PASS replica
+
+# Add VOLUMEs to allow backup of config and databases
+VOLUME  ["/etc/mysql", "/var/lib/mysql"]
+
+# Change the mysql uid to 1000 in order to make it works nicely on b2d
+# See this issue: https://github.com/boot2docker/boot2docker/issues/581
+RUN usermod -u 1000 -g 100 mysql
+
+USER root
+
+# Run the next followings commands as mysql.
 EXPOSE 3306
+CMD ["/run.sh"]

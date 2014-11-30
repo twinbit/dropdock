@@ -1,16 +1,25 @@
+data:
+  build: containers/data
+  volumes:
+    - data:/data
+    - data/db:/var/lib/mysql
+mariadb:
+  build: containers/mariadb
+  privileged: true
+  volumes_from:
+    - data
 php:
   build: containers/php
-  volumes:
-    - www:/srv/http/www
-    - log:/log
+  links:
+    - mariadb
+  volumes_from:
+    - data
 nginx:
   build: containers/nginx
   links:
     - php
-  volumes:
-    - log:/log
-    - www:/srv/http/www
-  command: nginx
+  volumes_from:
+    - data
   ports:
     - "8000:80"
 
