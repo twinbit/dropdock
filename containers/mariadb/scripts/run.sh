@@ -1,8 +1,8 @@
 #!/bin/bash
 
-VOLUME_HOME="/var/lib/mysql"
+VOLUME_HOME="/data/var/lib/mysql"
 CONF_FILE="/etc/mysql/conf.d/my.cnf"
-LOG="/var/log/mysql/error.log"
+LOG="/data/var/log/mysql/error.log"
 
 # Set permission of config file
 chmod 644 ${CONF_FILE}

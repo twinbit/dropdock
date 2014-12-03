@@ -11,6 +11,12 @@ php:
     - mariadb
   volumes_from:
     - data
+tools:
+  build: containers/tools
+  links:
+    - mariadb
+  volumes_from:
+    - data
 nginx:
   build: containers/nginx
   links:
