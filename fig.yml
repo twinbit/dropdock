@@ -1,8 +1,5 @@
 data:
   build: containers/data
-  volumes:
-    - data:/data
-    - data/db:/var/lib/mysql
 mariadb:
   build: containers/mariadb
   privileged: true

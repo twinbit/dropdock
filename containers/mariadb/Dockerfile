@@ -32,12 +32,6 @@ ENV REPLICATION_PASS replica
 # Add VOLUMEs to allow backup of config and databases
 VOLUME  ["/etc/mysql", "/var/lib/mysql"]
 
-# Change the mysql uid to 1000 in order to make it works nicely on b2d
-# See this issue: https://github.com/boot2docker/boot2docker/issues/581
-RUN usermod -u 1000 -g 100 mysql
-
-USER root
-
 # Run the next followings commands as mysql.
 EXPOSE 3306
 CMD ["/run.sh"]
