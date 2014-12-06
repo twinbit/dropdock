@@ -6,5 +6,7 @@ RUN mkdir -p /data \
     mkdir -p /data/var/log/nginx \
     mkdir -p /data/var/log/mysql \
     mkdir -p /data/var/lib/mysql
+ADD build_structure.sh /
+RUN chmod +x /build_structure.sh
 VOLUME ["/data"]
-CMD ["true"]
+CMD ["/build_structure.sh"]

@@ -1,5 +1,7 @@
 data:
   build: containers/data
+  volumes:
+    - data:/data
 mariadb:
   build: containers/mariadb
   privileged: true
@@ -17,6 +19,8 @@ tools:
     - mariadb
   volumes_from:
     - data
+  volumes:
+    - data/cache/drush:/root/.drush/cache
 nginx:
   build: containers/nginx
   links:

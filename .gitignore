@@ -1,7 +1,2 @@
-data-orig
-data/*
-data/log
-data/db
-data/www
-temp
-log
+data
+!data/var/www

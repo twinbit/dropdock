@@ -81,7 +81,8 @@ if [[ ! -d $VOLUME_HOME/mysql ]]; then
     if [ ! -f /usr/share/mysql/my-default.cnf ] ; then
         cp /etc/mysql/my.cnf /usr/share/mysql/my-default.cnf
     fi
-    mysql_install_db --datadir=$VOLUME_HOME
+    chmod -R 777 $VOLUME_HOME
+    mysql_install_db --datadir=$VOLUME_HOME --user=root
     echo "=> Done!"
     echo "=> Creating admin user ..."
     CreateMySQLUser
