@@ -1,3 +1,4 @@
+# Based on: https://registry.hub.docker.com/u/tutum/mysql/
 FROM ubuntu:14.04
 MAINTAINER Paolo Mainardi <paolo@twinbit.it>
 
@@ -11,7 +12,7 @@ RUN apt-get update && \
 RUN rm -rf /var/lib/mysql/*
 
 # Add MySQL configuration
-ADD conf/my.cnf /etc/mysql/conf.d/my.cnf
+ADD conf/my.cnf /etc/mysql/my.cnf
 ADD conf/mysqld_charset.cnf /etc/mysql/conf.d/mysqld_charset.cnf
 
 # Add MySQL scripts

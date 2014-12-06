@@ -2,21 +2,23 @@ data:
   build: containers/data
   volumes:
     - data:/data
-mariadb:
-  build: containers/mariadb
+mysql:
+  build: containers/mysql
   privileged: true
   volumes_from:
     - data
 php:
   build: containers/php
   links:
-    - mariadb
+    - mysql
+    - mailcatcher
   volumes_from:
     - data
 tools:
   build: containers/tools
   links:
-    - mariadb
+    - mysql
+    - mailcatcher
   volumes_from:
     - data
   volumes:
@@ -29,4 +31,7 @@ nginx:
     - data
   ports:
     - "8000:80"
-
+mailcatcher:
+  build: containers/mailcatcher
+  volumes_from:
+    - data

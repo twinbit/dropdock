@@ -8,8 +8,15 @@ RUN echo "deb http://archive.ubuntu.com/ubuntu trusty main universe" > /etc/apt/
     apt-get update && \
     apt-get -y dist-upgrade
 RUN apt-get -y install php5 php5-fpm php5-gd php5-ldap \
-    php5-sqlite php5-pgsql php-pear php5-mysql \
-    php5-mcrypt php5-xcache php5-xmlrpc php5-intl php5-xdebug
+    php5-sqlite php5-pgsql php-pear php5-mysql php5-curl \
+    php5-mcrypt php5-xcache php5-xmlrpc php5-intl php5-xdebug \
+    build-essential \
+    libsqlite3-dev \
+    ruby \
+    ruby-dev
+
+# We need this just for catchmail binary.
+RUN gem install mailcatcher --no-rdoc --no-ri
 
 RUN sed -i '/daemonize /c \
 daemonize = no' /etc/php5/fpm/php-fpm.conf

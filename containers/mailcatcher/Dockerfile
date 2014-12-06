@@ -4,12 +4,12 @@ MAINTAINER Paolo Mainardi <paolo@twinbit.it>
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update && apt-get install -y \
+    build-essential \
     libsqlite3-dev \
     ruby \
-    ruby-dev \
-    rubygems
+    ruby-dev
 
-RUN gem install mailcatcher
+RUN gem install mailcatcher --no-rdoc --no-ri
 
 EXPOSE 1080
 EXPOSE 1025
