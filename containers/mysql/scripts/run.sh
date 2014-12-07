@@ -4,13 +4,9 @@ VOLUME_HOME="/data/var/lib/mysql"
 CONF_FILE="/etc/mysql/conf.d/my.cnf"
 LOG="/data/var/log/mysql/error.log"
 
-# Set permission of config file
-chmod 644 ${CONF_FILE}
-chmod 644 /etc/mysql/conf.d/mysqld_charset.cnf
-
 StartMySQL ()
 {
-    /usr/bin/mysqld_safe --datadir=$VOLUME_HOME --user=mysql > /dev/null 2>&1 &
+    /usr/bin/mysqld_safe --datadir=$VOLUME_HOME --user=root > /dev/null 2>&1 &
 
     # Time out in 1 minute
     LOOP_LIMIT=13
@@ -141,4 +137,4 @@ if [ -n "${REPLICATION_SLAVE}" ]; then
     fi
 fi
 
-exec mysqld_safe --datadir=$VOLUME_HOME --user=mysql
+exec mysqld_safe --datadir=$VOLUME_HOME --user=root --log-error=$LOG

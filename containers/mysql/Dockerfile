@@ -12,8 +12,7 @@ RUN apt-get update && \
 RUN rm -rf /var/lib/mysql/*
 
 # Add MySQL configuration
-ADD conf/my.cnf /etc/mysql/my.cnf
-ADD conf/mysqld_charset.cnf /etc/mysql/conf.d/mysqld_charset.cnf
+COPY conf/my.cnf /etc/mysql/my.cnf
 
 # Add MySQL scripts
 ADD scripts/import_sql.sh /import_sql.sh
