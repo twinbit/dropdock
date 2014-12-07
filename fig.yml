@@ -14,8 +14,8 @@ php:
     - mailcatcher
   volumes_from:
     - data
-tools:
-  build: containers/tools
+cli:
+  build: containers/cli
   links:
     - mysql
     - mailcatcher
