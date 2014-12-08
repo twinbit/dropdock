@@ -9,6 +9,14 @@ RUN echo "deb http://archive.ubuntu.com/ubuntu trusty main universe" > /etc/apt/
     apt-get install -y python-software-properties software-properties-common && \
     add-apt-repository ppa:chris-lea/node.js -y && \
     apt-get update
+
+# Set timezone and locale.
+RUN apt-get install locales && \
+    echo "Europe/Rome" > /etc/timezone && \
+    dpkg-reconfigure -f noninteractive tzdata && \
+    locale-gen en_US.UTF-8 && \
+    dpkg-reconfigure locales
+
 RUN apt-get -y install \
     php5-cli \
     php5-curl \
