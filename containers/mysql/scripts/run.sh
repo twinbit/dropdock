@@ -6,7 +6,7 @@ LOG="/data/var/log/mysql/error.log"
 
 StartMySQL ()
 {
-    /usr/bin/mysqld_safe --datadir=$VOLUME_HOME --user=root > /dev/null 2>&1 &
+    /usr/bin/mysqld_safe --datadir=$VOLUME_HOME --log-error=$LOG --user=root > /dev/null 2>&1 &
 
     # Time out in 1 minute
     LOOP_LIMIT=13

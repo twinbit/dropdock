@@ -26,7 +26,7 @@ RUN apt-get -y install \
     bundler \
     nodejs \
     ruby-dev && \
-    npm install -g bower@1.3.2 && \
+    npm install -g bower && \
     curl -sS https://getcomposer.org/installer | php && \
     mv composer.phar /usr/local/bin/composer && \
     apt-get clean
@@ -42,4 +42,9 @@ RUN composer install && \
 # add configurations
 COPY conf/php.ini /etc/php5/cli/php.ini
 
+# This is needed by bower.
+RUN mkdir -p /var/www && \
+    chown www-data:www-data /var/www && \
+    chown -R www-data:www-data /tmp
+USER www-data
 WORKDIR /data/var/www

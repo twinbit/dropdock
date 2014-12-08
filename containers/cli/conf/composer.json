@@ -25,6 +25,7 @@
         "phing/phing": "2.7.*",
         "drupal/phing-drush-task": "1.0",
         "drush/drush": "6.2.*",
+        "pear/console_table": "*",
         "squizlabs/php_codesniffer": "1.5.*",
         "phpmd/phpmd": "1.5.*",
         "drupal/coder": "7.2.*",

@@ -9,7 +9,7 @@ RUN apt-get update && apt-get install -y \
     ruby \
     ruby-dev
 
-RUN gem install mailcatcher --no-rdoc --no-ri
+RUN gem install mailcatcher:0.5.12 --no-rdoc --no-ri
 
 EXPOSE 1080
 EXPOSE 1025

@@ -25,8 +25,9 @@ RUN sed -i '/^listen /c \
 listen = 0.0.0.0:9000' /etc/php5/fpm/pool.d/www.conf
 RUN sed -i 's/^listen.allowed_clients/;listen.allowed_clients/' /etc/php5/fpm/pool.d/www.conf
 
-# add configurations
+# Add configurations.
 COPY conf/php.ini /etc/php5/fpm/php.ini
+COPY conf/php-fpm.ini /etc/php5/fpm/pool.d/www.conf
 
 EXPOSE 9000
 ENTRYPOINT ["php5-fpm"]

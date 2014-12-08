@@ -16,17 +16,20 @@ php:
     - data
 cli:
   build: containers/cli
+  environment:
+    - CACHE_PREFIX=/drush-cache
   links:
     - mysql
     - mailcatcher
   volumes_from:
     - data
   volumes:
-    - data/cache/drush:/root/.drush/cache
+    - data/cache/drush:/drush-cache
 nginx:
   build: containers/nginx
   links:
     - php
+    - mysql
   volumes_from:
     - data
   ports:
