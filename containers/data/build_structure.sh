@@ -1,6 +1,8 @@
 #!/bin/bash
 mkdir -p /data
 mkdir -p /data/var/www
+mkdir -p /data/var/cache
+mkdir -p /data/var/cache/drush
 mkdir -p /data/var/log/nginx
 mkdir -p /data/var/log/mysql
 mkdir -p /data/var/log/php

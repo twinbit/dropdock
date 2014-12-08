@@ -24,7 +24,8 @@ cli:
   volumes_from:
     - data
   volumes:
-    - data/cache/drush:/drush-cache
+    - data/var/cache/drush:/drush-cache
+    - ~/.ssh:/var/www/.ssh
 nginx:
   build: containers/nginx
   links:
@@ -37,3 +38,5 @@ mailcatcher:
   build: containers/mailcatcher
   volumes_from:
     - data
+  ports:
+    - "1025"
