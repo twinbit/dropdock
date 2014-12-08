@@ -3,21 +3,31 @@ MAINTAINER Paolo Mainardi <paolo@twinbit.it>
 ENV REFRESHED_AT 2014-11-24-2
 
 ENV DEBIAN_FRONTEND noninteractive
+
 RUN echo "deb http://archive.ubuntu.com/ubuntu trusty main universe" > /etc/apt/sources.list && \
     apt-get update && \
     apt-get -y dist-upgrade && \
-    apt-get install -y python-software-properties software-properties-common && \
-    add-apt-repository ppa:chris-lea/node.js -y && \
     apt-get update
 
 # Set timezone and locale.
+ENV LANGUAGE en_US.UTF-8
+ENV LANG en_US.UTF-8
+ENV LC_ALL en_US.UTF-8
 RUN apt-get install locales && \
     echo "Europe/Rome" > /etc/timezone && \
     dpkg-reconfigure -f noninteractive tzdata && \
     locale-gen en_US.UTF-8 && \
     dpkg-reconfigure locales
 
-RUN apt-get -y install \
+# Use nodejs from ppa:chris-lea repository.
+RUN apt-get install -y python-software-properties software-properties-common && \
+    add-apt-repository ppa:chris-lea/node.js -y
+
+# USE php5.6 from ppa:ondrej repository.
+RUN add-apt-repository ppa:ondrej/php5-5.6 -y
+
+RUN apt-get update && \
+    apt-get -y install \
     php5-cli \
     php5-curl \
     php5-gd \
@@ -48,7 +58,9 @@ RUN composer install && \
     bundle install
 
 # add configurations
-COPY conf/php.ini /etc/php5/cli/php.ini
+# COPY conf/php.ini /etc/php5/cli/php.ini
+COPY conf/php-conf.d/opcache.ini /etc/php5/cli/conf.d/php.ini
+COPY conf/php-conf.d/docker.ini  /etc/php5/cli/conf.d/docker.ini
 
 # This is needed by bower.
 RUN mkdir -p /var/www && \
