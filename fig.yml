@@ -12,6 +12,7 @@ php:
   links:
     - mysql
     - mailcatcher
+    - solr
   volumes_from:
     - data
 cli:
@@ -21,6 +22,7 @@ cli:
   links:
     - mysql
     - mailcatcher
+    - solr
   volumes_from:
     - data
   volumes:
@@ -39,3 +41,9 @@ mailcatcher:
     - data
   ports:
     - "1025"
+solr:
+  build: containers/solr
+  volumes:
+    - data/opt/solr-configs:/tmp/solr-configs
+  ports:
+    - "8983"
