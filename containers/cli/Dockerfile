@@ -23,9 +23,6 @@ RUN apt-get install locales && \
 RUN apt-get install -y python-software-properties software-properties-common && \
     add-apt-repository ppa:chris-lea/node.js -y
 
-# USE php5.6 from ppa:ondrej repository.
-RUN add-apt-repository ppa:ondrej/php5-5.6 -y
-
 RUN apt-get update && \
     apt-get -y install \
     php5-cli \
