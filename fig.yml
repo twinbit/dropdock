@@ -27,6 +27,7 @@ cli:
     - data
   volumes:
     - data/var/cache/drush:/drush-cache
+    - ~/.ssh:/root/.ssh
 nginx:
   build: containers/nginx
   links:

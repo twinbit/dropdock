@@ -63,5 +63,5 @@ COPY conf/php-conf.d/docker.ini  /etc/php5/cli/conf.d/docker.ini
 RUN mkdir -p /var/www && \
     chown www-data:www-data /var/www && \
     chown -R www-data:www-data /tmp
-USER www-data
+
 WORKDIR /data/var/www
