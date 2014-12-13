@@ -4,10 +4,8 @@ ENV REFRESHED_AT 2014-11-24-2
 
 ENV DEBIAN_FRONTEND noninteractive
 
-RUN echo "deb http://archive.ubuntu.com/ubuntu trusty main universe" > /etc/apt/sources.list && \
-    apt-get update && \
-    apt-get -y dist-upgrade && \
-    apt-get update
+RUN apt-get update && \
+    apt-get -y dist-upgrade
 
 # Set timezone and locale.
 ENV LANGUAGE en_US.UTF-8
@@ -47,7 +45,11 @@ RUN apt-get update && \
     npm install -g bower && \
     curl -sS https://getcomposer.org/installer | php && \
     mv composer.phar /usr/local/bin/composer && \
-    apt-get clean
+    apt-get clean && \
+    mkdir -p /home/www-data/.git  && \
+    mkdir -p /home/www-data/.ssh  && \
+    chown -R www-data:www-data /home/www-data && \
+    usermod -d /home/www-data www-data
 
 # Install cli binaries.
 COPY conf/.gemrc /root/.gemrc
@@ -55,16 +57,18 @@ COPY conf/composer.json /tmp/composer.json
 COPY conf/Gemfile /tmp/Gemfile
 WORKDIR /tmp
 RUN composer install && \
+    chown -R www-data:www-data /tmp/vendor && \
     bundle install
 
 # add configurations
-# COPY conf/php.ini /etc/php5/cli/php.ini
 COPY conf/php-conf.d/opcache.ini /etc/php5/cli/conf.d/php.ini
 COPY conf/php-conf.d/docker.ini  /etc/php5/cli/conf.d/docker.ini
+COPY run.sh /run.sh
+RUN chmod +x /run.sh
 
-# This is needed by bower.
-RUN mkdir -p /var/www && \
-    chown www-data:www-data /var/www && \
-    chown -R www-data:www-data /tmp
 USER www-data
 WORKDIR /data/var/www
+
+# Opinionated start.
+ENTRYPOINT ["/run.sh"]
+CMD ["bash"]

@@ -16,15 +16,19 @@ php:
     - data
 cli:
   build: containers/cli
+  volumes_from:
+    - data
   environment:
     - CACHE_PREFIX=/drush-cache
+    - GITHUB_ACCESS_TOKEN=
   links:
     - mysql
     - mailcatcher
-  volumes_from:
-    - data
   volumes:
     - data/var/cache/drush:/drush-cache
+    - data/ssh-keys/docker:/home/www-data/.ssh/id_rsa
+    - data/ssh-keys/docker.pub:/home/www-data/.ssh/id_rsa.pub
+    - data/ssh-keys/hosts:/home/www-data/.ssh/hosts
 nginx:
   build: containers/nginx
   links:

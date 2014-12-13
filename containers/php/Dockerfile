@@ -5,10 +5,8 @@ ENV REFRESHED_AT 2014-11-24
 ENV DEBIAN_FRONTEND noninteractive
 
 # Configure default system.
-RUN echo "deb http://archive.ubuntu.com/ubuntu trusty main universe" > /etc/apt/sources.list && \
-    apt-get update && \
-    apt-get -y dist-upgrade && \
-    apt-get update
+RUN apt-get update && \
+    apt-get -y dist-upgrade
 
 # Set timezone and locale.
 ENV LANGUAGE en_US.UTF-8
