@@ -1,0 +1,45 @@
+data:
+  build: containers/data
+  volumes:
+    - data:/data
+mysql:
+  build: containers/mysql
+  privileged: true
+  volumes_from:
+    - data
+php:
+  build: containers/php
+  links:
+    - mysql
+    - mailcatcher
+  volumes_from:
+    - data
+cli:
+  build: containers/cli
+  volumes_from:
+    - data
+  environment:
+    - CACHE_PREFIX=/drush-cache
+    - GITHUB_ACCESS_TOKEN=
+  links:
+    - mysql
+    - mailcatcher
+  volumes:
+    - data/var/cache/drush:/drush-cache
+    - data/ssh-keys/docker:/home/www-data/.ssh/id_rsa
+    - data/ssh-keys/docker.pub:/home/www-data/.ssh/id_rsa.pub
+    - data/ssh-keys/hosts:/home/www-data/.ssh/hosts
+nginx:
+  build: containers/nginx
+  links:
+    - php
+  volumes_from:
+    - data
+  ports:
+    - "8000:80"
+mailcatcher:
+  build: containers/mailcatcher
+  volumes_from:
+    - data
+  ports:
+    - "1025"
