@@ -12,6 +12,7 @@ php:
   links:
     - mysql
     - mailcatcher
+    - solr
   volumes_from:
     - data
 cli:
@@ -24,6 +25,9 @@ cli:
   links:
     - mysql
     - mailcatcher
+    - solr
+  volumes_from:
+    - data
   volumes:
     - data/var/cache/drush:/drush-cache
     - data/ssh-keys/docker:/home/www-data/.ssh/id_rsa
@@ -43,3 +47,9 @@ mailcatcher:
     - data
   ports:
     - "1025"
+solr:
+  build: containers/solr
+  volumes:
+    - data/opt/solr-configs:/tmp/solr-configs
+  ports:
+    - "8983"
