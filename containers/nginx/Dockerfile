@@ -21,5 +21,8 @@ RUN chmod u=rwx /opt/bin/nginx-start.sh
 # PORTS
 EXPOSE 80 443
 
+# Add VOLUMEs to allow backup of config and databases
+VOLUME  ["/data/var/log/nginx", "/data/var/www"]
+
 WORKDIR /opt/bin
 ENTRYPOINT ["/opt/bin/nginx-start.sh"]

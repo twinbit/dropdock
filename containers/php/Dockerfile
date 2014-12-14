@@ -19,9 +19,9 @@ RUN apt-get install locales && \
     dpkg-reconfigure locales
 
 # USE php5.6 from ppa:ondrej
-RUN apt-get -y install python-software-properties software-properties-common && \
-    add-apt-repository ppa:ondrej/php5-5.6 -y && \
-    apt-get update
+#RUN apt-get -y install python-software-properties software-properties-common && \
+#    add-apt-repository ppa:ondrej/php5-5.6 -y && \
+#    apt-get update
 
 # UPD
 RUN apt-get -y install php5 php5-fpm php5-gd php5-ldap \
@@ -47,6 +47,9 @@ RUN sed -i 's/^listen.allowed_clients/;listen.allowed_clients/' /etc/php5/fpm/po
 COPY conf/conf.d/opcache.ini /etc/php5/fpm/conf.d/opcache.ini
 COPY conf/conf.d/docker.ini /etc/php5/fpm/conf.d/docker.ini
 COPY conf/php-fpm.conf /etc/php5/fpm/pool.d/www.conf
+
+# Add VOLUMEs to allow backup.
+VOLUME  ["/data/var/www", "/data/var/log/php"]
 
 EXPOSE 9000
 ENTRYPOINT ["php5-fpm"]

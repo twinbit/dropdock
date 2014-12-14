@@ -20,7 +20,7 @@ cli:
   volumes_from:
     - data
   environment:
-    - CACHE_PREFIX=/drush-cache
+    - COMPOSER_CACHE_DIR=/composer-cache
     - GITHUB_ACCESS_TOKEN=
   links:
     - mysql
@@ -29,9 +29,12 @@ cli:
   volumes_from:
     - data
   volumes:
-    - data/var/cache/drush:/drush-cache
+    - data/var/apps/drush:/home/www-data/.drush
+    - data/var/cache/composer:/composer-cache
+    # Add ssh keys to container in order to download private repos.
     - data/ssh-keys/docker:/home/www-data/.ssh/id_rsa
     - data/ssh-keys/docker.pub:/home/www-data/.ssh/id_rsa.pub
+    # Add an hosts file
     - data/ssh-keys/hosts:/home/www-data/.ssh/hosts
 nginx:
   build: containers/nginx
@@ -46,10 +49,13 @@ mailcatcher:
   volumes_from:
     - data
   ports:
-    - "1025"
+    - "1081:1080"
 solr:
   build: containers/solr
-  volumes:
-    - data/opt/solr-configs:/tmp/solr-configs
   ports:
-    - "8983"
+    - "8984:8983"
+  volumes:
+    - data/etc/solr-conf/elite:/opt/solr/example/multicore/elite
+    - data/etc/solr-conf/solr.xml:/opt/solr/example/multicore/solr.xml
+  command: -Xmx1024m -DSTOP.PORT=8079 -DSTOP.KEY=stopkey -Dsolr.solr.home=multicore -jar start.jar
+

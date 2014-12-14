@@ -30,7 +30,7 @@ ENV REPLICATION_USER replica
 ENV REPLICATION_PASS replica
 
 # Add VOLUMEs to allow backup of config and databases
-VOLUME  ["/etc/mysql", "/var/lib/mysql"]
+VOLUME  ["/etc/mysql", "/data/var/lib/mysql", "/data/var/log/mysql"]
 
 # Run the next followings commands as mysql.
 EXPOSE 3306
