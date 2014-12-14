@@ -1,11 +1,13 @@
 #!/bin/bash
-exec mkdir -p /data
-exec mkdir -p /data/sss-keys
-exec mkdir -p /data/var/www && chown -R www-data:www-data /data/var/www
-exec mkdir -p /data/var/cache
-exec mkdir -p /data/var/cache/drush && chown -R www-data:www-data /data/var/cache/drush
-exec mkdir -p /data/var/log/nginx && chown -R www-data:www-data /data/var/log/nginx
-exec mkdir -p /data/var/log/mysql
-exec mkdir -p /data/var/log/php && chown -R www-data:www-data /data/var/log/php
-exec mkdir -p /data/var/lib/mysql
+mkdir -p /data && \
+mkdir -p /data/ssh-keys && \
+mkdir -p /data/etc && \
+mkdir -p /data/var/www && \
+mkdir -p /data/var/cache && \
+mkdir -p /data/var/apps/drush && \
+mkdir -p /data/var/cache/composer  && \
+mkdir -p /data/var/log/nginx  \
+mkdir -p /data/var/log/mysql && \
+mkdir -p /data/var/log/php && \
+mkdir -p /data/var/lib/mysql
 exec $@
