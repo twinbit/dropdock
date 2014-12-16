@@ -2,8 +2,6 @@ FROM ubuntu:14.04
 
 MAINTAINER "Paolo Mainardi" <paolo@twinbit.it>
 
-WORKDIR /tmp
-
 # Install Nginx
 RUN apt-get update -y && \
     apt-get install -y nginx
