@@ -5,6 +5,8 @@ data:
 mysql:
   build: containers/mysql
   privileged: true
+  ports:
+    - "3307:3306"
   volumes_from:
     - data
 php:

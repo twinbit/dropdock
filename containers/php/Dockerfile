@@ -48,8 +48,5 @@ COPY conf/conf.d/opcache.ini /etc/php5/fpm/conf.d/opcache.ini
 COPY conf/conf.d/docker.ini /etc/php5/fpm/conf.d/docker.ini
 COPY conf/php-fpm.conf /etc/php5/fpm/pool.d/www.conf
 
-# Add VOLUMEs to allow backup.
-VOLUME  ["/data/var/www", "/data/var/log/php"]
-
 EXPOSE 9000
 ENTRYPOINT ["php5-fpm"]

@@ -137,4 +137,4 @@ if [ -n "${REPLICATION_SLAVE}" ]; then
     fi
 fi
 
-exec mysqld_safe --datadir=$VOLUME_HOME --user=root --log-error=$LOG
+exec mysqld_safe --datadir=$VOLUME_HOME --user=root --log-error=$LOG --pid-file=/var/run/mysql.pid

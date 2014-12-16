@@ -6,4 +6,6 @@ fi
 if [ -f  ~/.ssh/hosts ]; then
  ssh-keyscan -H `cat ~/.ssh/hosts` >> ~/.ssh/known_hosts 2>&1
 fi
-exec $@
+# Set the umask to 002 so that the group has write access.
+umask 002
+exec "${@}"
