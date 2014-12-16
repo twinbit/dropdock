@@ -29,6 +29,11 @@ ENV REPLICATION_SLAVE **False**
 ENV REPLICATION_USER replica
 ENV REPLICATION_PASS replica
 
+# Create folders and expose data volume.
+RUN mkdir -p /data/var/lib/mysql && \
+    mkdir -p /data/var/log/mysql
+VOLUME /data
+
 # Run the next followings commands as mysql.
 EXPOSE 3306
 CMD ["/run.sh"]

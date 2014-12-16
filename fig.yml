@@ -1,9 +1,11 @@
 data:
   build: containers/data
+  hostname: data
   volumes:
     - data:/data
 mysql:
   build: containers/mysql
+  hostname: mysql
   privileged: true
   ports:
     - "3307:3306"
@@ -11,6 +13,7 @@ mysql:
     - data
 php:
   build: containers/php
+  hostname: data
   links:
     - mysql
     - mailcatcher
@@ -18,6 +21,7 @@ php:
   volumes_from:
     - data
 cli:
+  hostname: cli
   build: containers/cli
   volumes_from:
     - data
@@ -40,6 +44,7 @@ cli:
     - data/ssh-keys/hosts:/home/www-data/.ssh/hosts
 nginx:
   build: containers/nginx
+  hostname: nginx
   links:
     - php
   volumes_from:
@@ -48,12 +53,14 @@ nginx:
     - "8000:80"
 mailcatcher:
   build: containers/mailcatcher
+  hostname: mailcatcher
   volumes_from:
     - data
   ports:
     - "1081:1080"
 solr:
   build: containers/solr
+  hostname: solr
   ports:
     - "8984:8983"
   volumes:

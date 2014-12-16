@@ -66,6 +66,10 @@ COPY conf/php-conf.d/docker.ini  /etc/php5/cli/conf.d/docker.ini
 COPY run.sh /run.sh
 RUN chmod +x /run.sh
 
+# Create folders and expose data volume.
+RUN mkdir -p /data/var/www && chown -R www-data:www-data /data/var/www
+VOLUME /data
+
 USER www-data
 WORKDIR /data/var/www
 
