@@ -39,10 +39,7 @@ cli:
     - data/var/apps/drush:/home/www-data/.drush
     - data/var/cache/composer:/composer-cache
     # Add ssh keys to container in order to download private repos.
-    - data/ssh-keys/docker:/home/www-data/.ssh/id_rsa
-    - data/ssh-keys/docker.pub:/home/www-data/.ssh/id_rsa.pub
-    # Add an hosts file
-    - data/ssh-keys/hosts:/home/www-data/.ssh/hosts
+    - data/ssh-keys:/home/www-data/.ssh
 nginx:
   build: containers/nginx
   hostname: nginx
