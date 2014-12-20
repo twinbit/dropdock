@@ -3,7 +3,6 @@ mkdir -p /data && \
 mkdir -p /data/ssh-keys && \
 mkdir -p /data/etc && \
 mkdir -p /data/var/www && \
-mkdir -p /data/var/cache && \
 mkdir -p /data/var/apps/drush && \
 mkdir -p /data/var/cache/composer  && \
 mkdir -p /data/var/log/nginx  \
