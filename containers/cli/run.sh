@@ -27,4 +27,3 @@ chown -R ${DEV_UID}:${DEV_GID} ${APACHE_HOME}
 umask 002
 # Mimic libcontainer changing user to www-data using gosu.
 exec gosu www-data "${@}"
-#exec "${@}"
