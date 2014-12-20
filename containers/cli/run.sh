@@ -7,7 +7,9 @@ if [ -f  ~/.ssh/id_rsa ]; then
   gosu www-data ssh-add ~/.ssh/id_rsa > /dev/null 2>&1
 fi
 if [ -f  ~/.ssh/hosts ]; then
-  gosu www-data ssh-keyscan -H `cat ~/.ssh/hosts` >> ~/.ssh/known_hosts 2>&1
+  if [ ! -f ~/.ssh/known_hosts ]; then
+    gosu www-data ssh-keyscan -H `cat ~/.ssh/hosts` >> ~/.ssh/known_hosts 2>&1
+  fi
 fi
 
 # Based on: http://chapeau.freevariable.com/2014/08/docker-uid.html

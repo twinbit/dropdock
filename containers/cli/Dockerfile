@@ -87,7 +87,6 @@ RUN mkdir -p /data/var/www && \
     chown -R www-data:www-data /data/var/www
 VOLUME /data
 
-#USER www-data
 WORKDIR /data/var/www
 
 # Opinionated start.
