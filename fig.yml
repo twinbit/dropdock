@@ -27,7 +27,8 @@ cli:
     - data
   environment:
     - COMPOSER_CACHE_DIR=/composer-cache
-    - GITHUB_ACCESS_TOKEN=
+    - APACHE_UID=501
+    - APACHE_GID=20
   links:
     - mysql
     - mailcatcher
