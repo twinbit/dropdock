@@ -1,5 +1,5 @@
 FROM ubuntu:14.04
-MAINTAINER Lorenzo Mele <lorenzo.mele@agavee.com>
+MAINTAINER Paolo Mainardi <paolo@twinbit.it>
 ENV DEBIAN_FRONTEND noninteractive
 
 ENV SOLR_VERSION 4.10.2
