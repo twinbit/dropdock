@@ -46,14 +46,20 @@ class RoboFile extends \Robo\Tasks
       $finder = new Finder();
       $finder->directories()->in(__DIR__ . "/containers");
       $finder->depth('== 0');
+      $update_time = time();
       foreach ($finder as $dir) {
-        $this->taskGitStack()
-         ->stopOnFail()
-         ->dir($container_dest)
-         ->add('-A')
-         ->commit('automatic update container from build: ' . time())
-         ->push('origin','master')
-         ->run();
+        $container_source_path = $dir->getRealPath();
+        $container_name = $dir->getRelativePathname();
+        $container_dest = realpath("github-repos/docker-drupal-{$container_name}");
+        if (file_exists($container_dest)) {
+          $this->taskGitStack()
+           ->stopOnFail()
+           ->dir($container_dest)
+           ->add('-A')
+           ->commit('automatic update container from build: ' . $update_time)
+           ->push('origin','master')
+           ->run();
+        }
       }
     }
 }
