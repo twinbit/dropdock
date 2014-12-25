@@ -15,13 +15,15 @@ RUN rm -rf /var/lib/mysql/*
 COPY conf/my.cnf /etc/mysql/my.cnf
 
 # Add MySQL scripts
-ADD scripts/import_sql.sh /import_sql.sh
-ADD scripts/run.sh /run.sh
-RUN chmod 755 /*.sh
+COPY scripts/create_db.sh /create
+COPY scripts/import_sql.sh /import
+COPY scripts/run.sh /run.sh
+COPY scripts/cli.sh /cli
+RUN chmod 755 /create /import /run.sh /cli
 
 # Exposed ENV
-ENV MYSQL_USER twinbit
-ENV MYSQL_PASS twinbit
+ENV MYSQL_USER docker
+ENV MYSQL_PASS docker
 
 # Replication ENV
 ENV REPLICATION_MASTER **False**
