@@ -4,26 +4,19 @@ ENV REFRESHED_AT 2014-11-24-2
 
 ENV DEBIAN_FRONTEND noninteractive
 
-RUN apt-get update && \
-    apt-get -y dist-upgrade
-
 # Map www-data user
 ENV APACHE_UID 33
 ENV APACHE_GID 33
 ENV APACHE_HOME /home/www-data
 
 # Set timezone and locale.
-ENV LANGUAGE en_US.UTF-8
+RUN locale-gen en_US.UTF-8
 ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
-RUN apt-get install locales && \
-    echo "Europe/Rome" > /etc/timezone && \
-    dpkg-reconfigure -f noninteractive tzdata && \
-    locale-gen en_US.UTF-8 && \
-    dpkg-reconfigure locales
 
 # Use nodejs from ppa:chris-lea repository.
-RUN apt-get install -y python-software-properties software-properties-common && \
+RUN apt-get update && apt-get -y install python-software-properties software-properties-common && \
     add-apt-repository ppa:chris-lea/node.js -y
 
 # USE php5.6 from ppa:ondrej repository.
@@ -49,11 +42,9 @@ RUN apt-get update && \
     ruby-dev && \
     npm install -g bower && \
     curl -sS https://getcomposer.org/installer | php && \
-    mv composer.phar /usr/local/bin/composer
-
-# Install gosu binary.
-RUN curl -o /usr/local/bin/gosu -SL 'https://github.com/tianon/gosu/releases/download/1.0/gosu' \
-    && chmod +x /usr/local/bin/gosu
+    mv composer.phar /usr/local/bin/composer && \
+    curl -o /usr/local/bin/gosu -SL 'https://github.com/tianon/gosu/releases/download/1.0/gosu' && \
+    chmod +x /usr/local/bin/gosu
 
 # Init www-data home folder and install PHP composer dependencies.
 RUN mkdir -p $APACHE_HOME/.git  && \

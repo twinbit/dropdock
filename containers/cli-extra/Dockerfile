@@ -1,11 +1,8 @@
-FROM twinbit/docker-drupal-cli
+FROM twinbit/docker-drupal-cli:latest
 MAINTAINER Paolo Mainardi <paolo@twinbit.it>
-ENV REFRESHED_AT 2014-12-22
+ENV REFRESHED_AT 2014-12-22-3
 
 ENV DEBIAN_FRONTEND noninteractive
-
-RUN apt-get update && \
-    apt-get -y dist-upgrade
 
 # Install ruby binaries.
 WORKDIR /tmp
