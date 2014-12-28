@@ -1,3 +1,5 @@
+bin
+drocker.phar
 /data
 fig.yml
 src/github-repos
