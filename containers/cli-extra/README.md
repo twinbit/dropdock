@@ -1,4 +1,4 @@
-## Drupal Docker CLI
+## Drupal Docker CLI extra ruby packages
 
 Packages:
  - PHP 5.5 CLI
