@@ -17,7 +17,7 @@ class RoboFile extends \Robo\Tasks
       $this->yell("Drupal Docker build containers.");
       $standard_readme = file_get_contents('github-repos/README.default.md');
       $finder = new Finder();
-      $finder->directories()->in(__DIR__ . "/src/containers");
+      $finder->directories()->in(__DIR__ . "/containers");
       $finder->depth('== 0');
       foreach ($finder as $dir) {
         $container_source_path = $dir->getRealPath();
@@ -46,7 +46,7 @@ class RoboFile extends \Robo\Tasks
     {
       $this->yell("Drupal Docker commit to gihub.");
       $finder = new Finder();
-      $finder->directories()->in(__DIR__ . "/src/containers");
+      $finder->directories()->in(__DIR__ . "/containers");
       $finder->depth('== 0');
       $update_time = time();
       foreach ($finder as $dir) {
