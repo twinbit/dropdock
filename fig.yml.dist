@@ -1,18 +1,18 @@
 data:
-  build: containers/data
+  image: twinbit/data
   hostname: data
   volumes:
     - data:/data
 mysql:
-  build: containers/mysql
+  image: twinbit/mysql
   hostname: mysql
   privileged: true
   ports:
-    - "3307:3306"
+    - "3306:3306"
   volumes_from:
     - data
 php:
-  build: containers/php
+  image: twinbit/php
   hostname: data
   links:
     - mysql
@@ -22,7 +22,7 @@ php:
     - data
 cli:
   hostname: cli
-  build: containers/cli
+  image: twinbit/cli
   volumes_from:
     - data
   environment:
@@ -41,7 +41,7 @@ cli:
     # Add ssh keys to container in order to download private repos.
     - data/ssh-keys:/home/www-data/.ssh
 nginx:
-  build: containers/nginx
+  image: twinbit/nginx
   hostname: nginx
   links:
     - php
@@ -50,14 +50,14 @@ nginx:
   ports:
     - "8000:80"
 mailcatcher:
-  build: containers/mailcatcher
+  image: twinbit/mailcatcher
   hostname: mailcatcher
   volumes_from:
     - data
   ports:
     - "1080:1080"
 solr:
-  build: containers/solr
+  image: twinbit/solr
   hostname: solr
   ports:
     - "8983:8983"

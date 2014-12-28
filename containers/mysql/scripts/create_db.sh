@@ -14,7 +14,5 @@ while [[ RET -ne 0 ]]; do
   mysql -u${MYSQL_USER} -p${MYSQL_PASS} -h127.0.0.1 -e "CREATE DATABASE $1"
   RET=$?
 done
-
 mysqladmin -uroot shutdown
-
 echo "=> Done!"
