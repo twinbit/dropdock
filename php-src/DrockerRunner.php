@@ -19,12 +19,15 @@ class DrockerRunner extends \Robo\Runner {
     const VERSION = '0.1';
     protected function loadRoboFile()
     {
-        if (!file_exists(self::ROBOFILE)) {
+        $base_path = __DIR__;
+        if (strpos(basename(__FILE__), 'phar')) {
+          $base_path = "phar://";
+        }
+        if (!file_exists($base_path . '/' . self::ROBOFILE)) {
             $this->writeln("<comment>  ".self::ROBOFILE." not found in this dir </comment>");
             exit;
         }
-        require_once self::ROBOFILE;
-
+        require_once $base_path . '/' . self::ROBOFILE;
         if (!class_exists(self::ROBOCLASS)) {
             $this->writeln("<error>Class ".self::ROBOCLASS." was not loaded</error>");
             return false;
