@@ -16,18 +16,19 @@ use Robo\Runner;
 class DrockerRunner extends \Robo\Runner {
     use \Robo\Output;
     const ROBOFILE = 'DrockerRoboFile.php';
-    const VERSION = '0.1';
+    const VERSION = '0.1.0';
     protected function loadRoboFile()
     {
-        $base_path = __DIR__;
-        if (strpos(basename(__FILE__), 'phar')) {
-          $base_path = "phar://";
+        $base_path = realpath(__DIR__ . '/../');
+        if (strpos(__FILE__, 'phar://') !== FALSE) {
+          $base_path = 'phar://drocker.phar';
         }
-        if (!file_exists($base_path . '/' . self::ROBOFILE)) {
+        $conf_file = $base_path . '/' . self::ROBOFILE;
+        if (!file_exists($conf_file)) {
             $this->writeln("<comment>  ".self::ROBOFILE." not found in this dir </comment>");
             exit;
         }
-        require_once $base_path . '/' . self::ROBOFILE;
+        require_once $conf_file;
         if (!class_exists(self::ROBOCLASS)) {
             $this->writeln("<error>Class ".self::ROBOCLASS." was not loaded</error>");
             return false;
