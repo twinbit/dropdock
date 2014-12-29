@@ -15,7 +15,7 @@ wget http://twinbit.github.io/drocker/drocker.phar
 To install globally put `drocker.phar` in `/usr/bin`.
 
 ```
-sudo chmod +x drocker.phar && mv drocker.phar /usr/bin/robo
+sudo chmod +x drocker.phar && mv drocker.phar /usr/bin/drocker
 ```
 
 Now you can use it just like `drocker`.
