@@ -1,5 +1,5 @@
 <?php
-
+include 'vendor/autoload.php';
 use Symfony\Component\Finder\Finder as Finder;
 
 /**
