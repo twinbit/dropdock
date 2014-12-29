@@ -53,7 +53,7 @@ mysql:
   hostname: mysql
   privileged: true
   ports:
-    - "3307:3306"
+    - "3306:3306"
   volumes_from:
     - data
 mailcatcher:
@@ -62,7 +62,7 @@ mailcatcher:
   volumes_from:
     - data
   ports:
-    - "1081:1080"
+    - "1080:1080"
 solr:
   image: twinbit/solr
   hostname: solr
