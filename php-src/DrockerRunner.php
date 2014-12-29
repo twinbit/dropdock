@@ -16,7 +16,7 @@ use Robo\Runner;
 class DrockerRunner extends \Robo\Runner {
     use \Robo\Output;
     const ROBOFILE = 'DrockerRoboFile.php';
-    const VERSION = '0.1.0';
+    const VERSION = '0.1.1';
     protected function loadRoboFile()
     {
         $base_path = realpath(__DIR__ . '/../');
