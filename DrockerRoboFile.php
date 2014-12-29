@@ -7,10 +7,12 @@ class RoboFile extends \Robo\Tasks
      */
     public function init()
     {
-      $this->yell("Drupal Docker init.");
+      $this->yell("Drocker init.");
       $base_path = __DIR__;
-      if (strpos(basename(__FILE__), 'phar')) {
-        $base_path = "phar://drocker.phar";
+      $phar = FALSE;
+      if (strpos(__FILE__, 'phar://') !== FALSE) {
+        $base_path = 'phar://drocker.phar';
+        $phar = TRUE;
       }
       // Create directory structure.
       $this->taskFileSystemStack()
@@ -19,11 +21,17 @@ class RoboFile extends \Robo\Tasks
            ->run();
 
       // Copy static binaries.
-      $this->taskMirrorDir([$base_path . '/src/bin/' => 'bin/'])->run();
+      if ($phar) {
+        $bin_dir = $base_path . '/bin/';
+      }
+      else {
+        $bin_dir = $base_path . '/src/bin/';
+      }
+      $this->taskMirrorDir([$bin_dir => 'bin/'])->run();
 
       // Rename fig.yml.dist to fig.yml
       $this->taskFileSystemStack()
-           ->copy('fig.yml.dist', 'fig.yml')
+           ->copy($base_path . '/fig.yml.dist', 'fig.yml')
            ->run();
     }
 }
