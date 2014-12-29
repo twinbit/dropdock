@@ -15,7 +15,7 @@ class RoboFile extends \Robo\Tasks
     public function build()
     {
       $this->yell("Drupal Docker build containers.");
-      $standard_readme = file_get_contents('github-repos/README.default.md');
+      $standard_readme = file_get_contents('README.default.md');
       $finder = new Finder();
       $finder->directories()->in(__DIR__ . "/containers");
       $finder->depth('== 0');
