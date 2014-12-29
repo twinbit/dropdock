@@ -1,14 +1,14 @@
 data:
-  image: twinbit/data
+  build: src/containers/data
   hostname: data
   volumes:
     - data:/data
 nginx:
-  image: twinbit/nginx
+  build: src/containers/nginx
   hostname: nginx
   environment:
-    - LOCAL_UID=##LOCAL_UID##
-    - LOCAL_GID=##LOCAL_GID##
+    - LOCAL_UID=501
+    - LOCAL_GID=20
   links:
     - php
   volumes_from:
@@ -17,11 +17,11 @@ nginx:
     - "8000:80"
   privileged: true
 php:
-  image: twinbit/php
+  build: src/containers/php
   hostname: php
   environment:
-    - LOCAL_UID=##LOCAL_UID##
-    - LOCAL_GID=##LOCAL_GID##
+    - LOCAL_UID=501
+    - LOCAL_GID=20
   links:
     - mysql
     - mailcatcher
@@ -33,8 +33,8 @@ cli:
   build: src/containers/cli
   hostname: cli
   environment:
-    - LOCAL_UID=##LOCAL_UID##
-    - LOCAL_GID=##LOCAL_GID##
+    - LOCAL_UID=501
+    - LOCAL_GID=20
     - COMPOSER_CACHE_DIR=/composer-cache
   links:
     - mysql
@@ -49,7 +49,7 @@ cli:
     - data/ssh-keys:/home/www-data/.ssh
   privileged: true
 mysql:
-  image: twinbit/mysql
+  build: src/containers/mysql
   hostname: mysql
   privileged: true
   ports:
@@ -57,17 +57,19 @@ mysql:
   volumes_from:
     - data
 mailcatcher:
-  image: twinbit/mailcatcher
+  build: src/containers/mailcatcher
   hostname: mailcatcher
   volumes_from:
     - data
   ports:
     - "1081:1080"
 solr:
-  image: twinbit/solr
+  build: src/containers/solr
   hostname: solr
   ports:
-    - "8983:8983"
-  command: -Xmx1024m -DSTOP.PORT=8079 -DSTOP.KEY=stopkey -jar start.jar
-
+    - "8984:8983"
+  volumes:
+    - data/etc/solr-conf/elite:/opt/solr/example/multicore/elite
+    - data/etc/solr-conf/solr.xml:/opt/solr/example/multicore/solr.xml
+  command: -Xmx1024m -DSTOP.PORT=8079 -DSTOP.KEY=stopkey -Dsolr.solr.home=multicore -jar start.jar
 
