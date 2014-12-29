@@ -6,10 +6,10 @@
 
 ### Phar
 
-[Download drocker.phar >](https://github.com/twinbit/drocker/blob/gh-pages/drocker.phar)
+[Download drocker.phar >](http://twinbit.github.io/drocker/drocker.phar)
 
 ```
-wget https://github.com/twinbit/drocker/blob/gh-pages/drocker.phar
+wget http://twinbit.github.io/drocker/drocker.phar
 ```
 
 To install globally put `drocker.phar` in `/usr/bin`.
