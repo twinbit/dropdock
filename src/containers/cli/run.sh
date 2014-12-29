@@ -15,7 +15,7 @@ fi
 # Bindfs mount using nginx env variables.
 if [ -n "$LOCAL_UID" ] && [ -n "$LOCAL_GID" ]; then
   bindfs -u www-data -g www-data -p 0000,u=rwX:go=rD --create-for-user=${LOCAL_UID} --create-for-group=${LOCAL_GID} "/data/var/www" "/data/var/www"
-  bindfs -u www-data -g www-data -p 0000,u=rwX:go=rD --create-for-user=${LOCAL_UID} --create-for-group=${LOCAL_GID} "$HOME" "$HOME"
+  bindfs -u www-data -g www-data -p 0000,u=rwX --create-for-user=${LOCAL_UID} --create-for-group=${LOCAL_GID} "$HOME" "$HOME"
 fi
 
 # Set the umask to 002 so that the group has write access.
