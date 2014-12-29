@@ -25,17 +25,23 @@ class RoboFile extends \Robo\Tasks
            ->run();
 
       // Copy static binaries.
-      if ($phar) {
-        $bin_dir = $base_path . '/bin/';
-      }
-      else {
-        $bin_dir = $base_path . '/src/bin/';
-      }
+      $bin_dir = $base_path . '/src/bin/';
       $this->taskMirrorDir([$bin_dir => 'bin/'])->run();
 
       // Rename fig.yml.dist to fig.yml
       $this->taskFileSystemStack()
            ->copy($base_path . '/fig.yml.dist', 'fig.yml')
            ->run();
+
+      $uid = trim($this->taskExec('id -u')->run()->getMessage());
+      $gid = trim($this->taskExec('id -g')->run()->getMessage());
+      $this->taskReplaceInFile('fig.yml')
+       ->from('##LOCAL_UID##')
+       ->to($uid)
+       ->run();
+      $this->taskReplaceInFile('fig.yml')
+       ->from('##LOCAL_GID##')
+       ->to($gid)
+       ->run();
     }
 }
