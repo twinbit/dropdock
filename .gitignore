@@ -1,4 +1,4 @@
-bin
+/bin
 drocker.phar
 /data
 fig.yml
