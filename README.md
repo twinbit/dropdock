@@ -2,6 +2,43 @@
 
 ![Docker + Drupal](https://raw.githubusercontent.com/twinbit/drupal-docker-env/master/src/dde.png)
 
+## Installing
+
+### Phar
+
+[Download drocker.phar >](https://github.com/twinbit/drocker/raw/gh-pages/drocker.phar/robo.phar)
+
+```
+wget https://github.com/twinbit/drocker/raw/gh-pages/drocker.phar/robo.phar
+```
+
+To install globally put `drocker.phar` in `/usr/bin`.
+
+```
+sudo chmod +x drocker.phar && mv drocker.phar /usr/bin/robo
+```
+
+Now you can use it just like `drocker`.
+
+## Usage
+
+Just run `drocker init` in a empty folder to bootstrap a new drocker project:
+
+```
+|-- bin
+|   |-- cli
+|   |-- drush
+|   |-- mysql
+|   `-- phing
+|-- data
+`-- fig.yml
+```
+
+(@TODO) Just tweak `fig.yml` to match your system and run `fig up -d` to run the containers,
+at the first run fig will download and build remote containers, it can takes several minutes.
+
+*TODO*
+
 ## Boot2docker configuration steps:
 
 In order to not going insane trying to fix vboxfs shared folder permissions, it is better to

@@ -1,5 +1,9 @@
 <?php
 use Symfony\Component\Finder\Finder as Finder;
+
+/**
+ * This is project's console commands configuration for the Drocker cli tool.
+ */
 class RoboFile extends \Robo\Tasks
 {
     /**

@@ -3,9 +3,7 @@ include 'vendor/autoload.php';
 use Symfony\Component\Finder\Finder as Finder;
 
 /**
- * This is project's console commands configuration for Drocker command.
- *
- * @see http://robo.li/
+ * This is project's console commands configuration for the Drocker project.
  */
 class RoboFile extends \Robo\Tasks
 {
