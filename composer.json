@@ -1,5 +1,5 @@
 {
-    "name": "twinbit/drupal-docker-env",
+    "name": "twinbit/drocker",
     "description": "Drupal docker environment",
     "license": "MIT",
     "authors": [
