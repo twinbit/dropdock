@@ -34,8 +34,8 @@ Just run `drocker init` in a empty folder to bootstrap a new drocker project:
 `-- fig.yml
 ```
 
-(@TODO) Just tweak `fig.yml` to match your system and run `fig up -d` to run the containers,
-at the first run fig will download and build remote containers, it can takes several minutes.
+(@TODO) Tweak `fig.yml` to match your needs and run `fig up -d` to run the containers.
+At the first run fig will download and build remote containers, it can takes several minutes.
 
 *TODO*
 
