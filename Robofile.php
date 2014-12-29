@@ -50,10 +50,9 @@ class RoboFile extends \Robo\Tasks
       // Add binaries.
       $files = Finder::create()->ignoreVCS(true)
            ->files()
-           ->path('bin')
+           ->path('src/bin')
            ->notPath('data')
            ->notPath('vendor')
-           ->notPath('src')
            ->in(__DIR__);
       foreach ($files as $file) {
         $packer->addFile($file->getRelativePathname(), $file->getRealPath());
