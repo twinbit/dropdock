@@ -30,7 +30,8 @@ RUN apt-get -y install php5 php5-fpm php5-gd php5-ldap \
     build-essential \
     libsqlite3-dev \
     ruby \
-    ruby-dev
+    ruby-dev \
+    bindfs
 
 # We need this just for catchmail binary.
 RUN gem install mailcatcher --version 0.5.12 --no-rdoc --no-ri
@@ -47,6 +48,9 @@ RUN sed -i 's/^listen.allowed_clients/;listen.allowed_clients/' /etc/php5/fpm/po
 COPY conf/conf.d/opcache.ini /etc/php5/fpm/conf.d/opcache.ini
 COPY conf/conf.d/docker.ini /etc/php5/fpm/conf.d/docker.ini
 COPY conf/php-fpm.conf /etc/php5/fpm/pool.d/www.conf
+COPY run.sh /run.sh
+RUN chmod +x /run.sh
 
 EXPOSE 9000
-ENTRYPOINT ["php5-fpm"]
+ENTRYPOINT ["/run.sh"]
+CMD ["php5-fpm"]

@@ -5,8 +5,6 @@ ENV REFRESHED_AT 2014-11-24-2
 ENV DEBIAN_FRONTEND noninteractive
 
 # Map www-data user
-ENV APACHE_UID 33
-ENV APACHE_GID 33
 ENV APACHE_HOME /home/www-data
 
 # Set timezone and locale.
@@ -24,6 +22,7 @@ RUN apt-get update && apt-get -y install python-software-properties software-pro
 
 RUN apt-get update && \
     apt-get -y install \
+    bindfs \
     php5-cli \
     php5-curl \
     php5-gd \
@@ -46,19 +45,16 @@ RUN apt-get update && \
     curl -o /usr/local/bin/gosu -SL 'https://github.com/tianon/gosu/releases/download/1.0/gosu' && \
     chmod +x /usr/local/bin/gosu
 
-# Init www-data home folder and install PHP composer dependencies.
+# Init www-data home folder, install PHP composer dependencies and fix drush console table.
+ADD http://download.pear.php.net/package/Console_Table-1.1.3.tgz /tmp/
+COPY conf/composer.json $APACHE_HOME/composer.json
 RUN mkdir -p $APACHE_HOME/.git  && \
     mkdir -p $APACHE_HOME/.ssh  && \
-    chown -R www-data:www-data $APACHE_HOME && \
-    usermod -d $APACHE_HOME www-data
-COPY conf/composer.json $APACHE_HOME/composer.json
-RUN cd $APACHE_HOME && \
+    usermod -d $APACHE_HOME www-data && \
+    cd $APACHE_HOME && \
     composer install && \
-    chown -R www-data:www-data $APACHE_HOME
-
-# Fix composer console table dependency.
-ADD http://download.pear.php.net/package/Console_Table-1.1.3.tgz /tmp/
-RUN tar xzf /tmp/Console_Table-1.1.3.tgz -C $APACHE_HOME/vendor/drush/drush/lib && \
+    chown -R www-data:www-data $APACHE_HOME && \
+    tar xzf /tmp/Console_Table-1.1.3.tgz -C $APACHE_HOME/vendor/drush/drush/lib && \
     rm /tmp/Console_Table-1.1.3.tgz
 
 # Install ruby binaries.
