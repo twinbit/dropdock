@@ -5,3 +5,4 @@ fig.yml
 src/github-repos
 vendor
 composer.lock
+tmp
