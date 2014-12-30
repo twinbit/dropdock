@@ -1,14 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-
     <meta property="og:url" content="http://www.drocker.io/" />
     <meta property="og:site_name" content="Drocker - Let's rock with Drupal and Docker" />
     <link rel="shortcut icon" href="img/favicon.ico" />
@@ -39,7 +36,6 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
 </head>
 
 <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
@@ -86,13 +82,24 @@
                 <div class="row">
                     <div class="col-md-8 col-md-offset-2">
                         <img src="img/logo-small.png" class="img-responsive logo center-block">
-                        <p class="intro-text">Drocker - An open framework for distributed Drupal and PHP applications, for developers and sysadmins.</p>
-                        <a href="#about" class="btn btn-circle page-scroll">
-                            <i class="fa fa-angle-double-down animated"></i>
-                        </a>
+                        <p class="intro-text"><strong>Drocker.io</strong> - A framework designed for <strong>Drupal</strong> to <em>build fast, isolated development environments</em> using <strong>Docker</strong>.</p>
                     </div>
                 </div>
+                <div class="row">
+                  <div class="col-lg-4 col-lg-offset-4">
+                  <h5> Keep me updated with latest news </h5>
+                  <form action="http://twinbit.us2.list-manage.com/subscribe/post?u=4a81958915a0c37ca11aa99e0&amp;id=b577a65f5f" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate form-inline" target="_blank" novalidate>
+                    <div class="form-group">
+                      <input type="email" name="EMAIL" class="form-control" id="mce-EMAIL" placeholder="Insert your email">
+                      <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="btn btn-default">
+                    </div>
+                  </form>
+                  <a href="#about" class="btn btn-circle page-scroll">
+                    <i class="fa fa-angle-double-down animated"></i>
+                  </a>
+                </div>
             </div>
+          </div>
         </div>
     </header>
 
@@ -101,8 +108,8 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2">
                 <h2>About Drocker</h2>
-                <p>Some text with <a href="#">links</a></p>
-                <p>More text with other <a href="#">links</a>.</p>
+                <p>Documentation <a href="https://github.com/twinbit/drocker/blob/master/README.md">link</a></p>
+                <p>Usage <a href="https://github.com/twinbit/drocker/blob/master/README.md#usage">link</a></p>
             </div>
         </div>
              <ul class="list-inline banner-social-buttons">
@@ -143,7 +150,7 @@
     <!-- Footer -->
     <footer>
         <div class="container text-center">
-            <p>Copyright &copy; Twinbit (all logos are copyright of their respective owners)</p>
+            <p>A project by <a href="http://www.twinbit.it/en" target="_blank">Twinbit </a> (all logos are copyright of their respective owners)</p>
         </div>
     </footer>
 
@@ -156,12 +163,15 @@
     <!-- Plugin JavaScript -->
     <script src="js/jquery.easing.min.js"></script>
 
-    <!-- Google Maps API Key - Use your own API key to enable the map feature. More information on the Google Maps API can be found at https://developers.google.com/maps/ -->
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRngKslUGJTlibkQ3FkfTxj3Xss1UlZDA&sensor=false"></script>
-
     <!-- Custom Theme JavaScript -->
     <script src="js/grayscale.js"></script>
-
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-229968-26', 'auto');
+      ga('send', 'pageview');
+    </script>
 </body>
-
 </html>
