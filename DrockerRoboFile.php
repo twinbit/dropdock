@@ -7,17 +7,24 @@ use Symfony\Component\Finder\Finder as Finder;
 class RoboFile extends \Robo\Tasks
 {
     /**
+     * Get internal base path.
+     */
+    private function getBasePath() {
+      $base_path = __DIR__;
+      if (strpos(__FILE__, 'phar://') !== FALSE) {
+        $base_path = 'phar://drocker.phar';
+      }
+      return $base_path;
+    }
+
+    /**
      * Init drocker project.
      */
     public function init()
     {
       $this->yell("Drocker init.");
-      $base_path = __DIR__;
-      $phar = FALSE;
-      if (strpos(__FILE__, 'phar://') !== FALSE) {
-        $base_path = 'phar://drocker.phar';
-        $phar = TRUE;
-      }
+      $base_path = $this->getBasePath();
+
       // Create directory structure.
       $this->taskFileSystemStack()
            ->mkdir('data')
@@ -42,6 +49,34 @@ class RoboFile extends \Robo\Tasks
       $this->taskReplaceInFile('fig.yml')
        ->from('##LOCAL_GID##')
        ->to($gid)
+       ->run();
+    }
+
+    /**
+     * Reconfigure boot2docker cpu/memory.
+     */
+    public function boot2dockerOptimize($opts = ['cpu' => '1', 'memory' => '8192']) {
+      $memory = $opts['memory'];
+      $cpu = $opts['cpu'];
+      $this->taskExecStack()
+       ->stopOnFail(TRUE)
+       ->exec('boot2docker stop')
+       ->exec('VBoxManage modifyvm "boot2docker-vm" --memory ' . $memory . ' --cpus ' . $cpu)
+       ->exec('boot2docker up')
+       ->run();
+    }
+
+    /**
+     * Configure NFS mount boot script.
+     */
+    public function boot2dockerNfsSetup() {
+      $base_path = $this->getBasePath();
+      $mount_boot_script = file_get_contents($base_path . '/src/scripts/boot2local.sh');
+      $this->taskExecStack()
+       ->stopOnFail(TRUE)
+       ->exec('boot2docker ssh "sudo rm /var/lib/boot2docker/bootlocal.sh && sudo touch /var/lib/boot2docker/bootlocal.sh"')
+       ->exec('boot2docker ssh "echo \'' . $mount_boot_script . '\' | sudo tee -a /var/lib/boot2docker/bootlocal.sh" >/dev/null')
+       ->exec('boot2docker restart')
        ->run();
     }
 }

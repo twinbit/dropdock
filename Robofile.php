@@ -60,7 +60,12 @@ class RoboFile extends \Robo\Tasks
 
       // Add drocker binary and make it as executable.
       $packer->addFile('DrockerRoboFile.php', 'DrockerRoboFile.php');
+      // Add fig.yml.
       $packer->addFile('fig.yml.dist', 'fig.yml.dist');
+
+      // Add boot2local.sh script.
+      $packer->addFile('src/scripts/boot2local.sh', 'src/scripts/boot2local.sh');
+
       $packer->addFile('drocker', 'drocker')
              ->executable('drocker')
              ->run();
