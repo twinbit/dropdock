@@ -390,3 +390,7 @@ div.drocker-install-well code {
     background: black;
     color: white;
 }
+
+.intro-body h5 {
+    margin: 0;
+}
