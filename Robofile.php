@@ -11,6 +11,10 @@ class RoboFile extends \Robo\Tasks
   public function release()
     {
         $this->yell("Releasing Drocker");
+        $this->taskExecStack()
+          ->stopOnFail()
+          ->exec("git submodule update --init --recursive --remote")
+          ->run();
         $this->taskGitStack()
             ->add('-A')
             ->commit("auto-update")
