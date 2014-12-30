@@ -369,3 +369,14 @@ img::-moz-selection {
 body {
     webkit-tap-highlight-color: rgba(255,255,255,.2);
 }
+
+form.mailchimp-form {
+  padding-top: 15px;
+  padding-bottom: 25px;
+}
+
+@media (max-width: 768px) {
+
+    #mc-embedded-subscribe-form .form-control {display:inline; width:50%;}
+
+}
