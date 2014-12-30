@@ -12,7 +12,7 @@ class RoboFile extends \Robo\Tasks
     /**
      * Build containers from base repo.
      */
-    public function build()
+    public function containersBuild()
     {
       $this->yell("Drupal Docker build containers.");
       $standard_readme = file_get_contents('README.default.md');
@@ -42,7 +42,7 @@ class RoboFile extends \Robo\Tasks
     /**
      * Commit to gihub.
      */
-    public function commit()
+    public function containersPublish()
     {
       $this->yell("Drupal Docker commit to gihub.");
       $finder = new Finder();
