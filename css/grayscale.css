@@ -376,7 +376,17 @@ form.mailchimp-form {
 }
 
 @media (max-width: 768px) {
-
     #mc-embedded-subscribe-form .form-control {display:inline; width:50%;}
+}
 
+div.drocker-install-well {
+    border: 0;
+    background: black;
+    color: white;
+}
+
+div.drocker-install-well code {
+    border: 0;
+    background: black;
+    color: white;
 }
