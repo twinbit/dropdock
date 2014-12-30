@@ -1,10 +1,10 @@
 data:
-  image: twinbit/data
+  image: twinbit/docker-drupal-data
   hostname: data
   volumes:
     - data:/data
 nginx:
-  image: twinbit/nginx
+  image: twinbit/docker-drupal-nginx
   hostname: nginx
   environment:
     - LOCAL_UID=##LOCAL_UID##
@@ -17,7 +17,7 @@ nginx:
     - "8000:80"
   privileged: true
 php:
-  image: twinbit/php
+  image: twinbit/docker-drupal-php
   hostname: php
   environment:
     - LOCAL_UID=##LOCAL_UID##
@@ -30,7 +30,7 @@ php:
     - data
   privileged: true
 cli:
-  build: src/containers/cli
+  image: twinbit/docker-drupal-cli
   hostname: cli
   environment:
     - LOCAL_UID=##LOCAL_UID##
@@ -49,7 +49,7 @@ cli:
     - data/ssh-keys:/home/www-data/.ssh
   privileged: true
 mysql:
-  image: twinbit/mysql
+  image: twinbit/docker-drupal-mysql
   hostname: mysql
   privileged: true
   ports:
@@ -57,14 +57,14 @@ mysql:
   volumes_from:
     - data
 mailcatcher:
-  image: twinbit/mailcatcher
+  image: twinbit/docker-drupal-mailcatcher
   hostname: mailcatcher
   volumes_from:
     - data
   ports:
     - "1080:1080"
 solr:
-  image: twinbit/solr
+  image: twinbit/docker-drupal-solr
   hostname: solr
   ports:
     - "8983:8983"
