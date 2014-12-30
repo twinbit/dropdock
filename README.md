@@ -1,6 +1,6 @@
 # Drocker
 
-![Docker + Drupal](https://raw.githubusercontent.com/twinbit/drupal-docker-env/master/src/dde.png)
+![Docker + Drupal](https://raw.githubusercontent.com/twinbit/drocker/gh-pages/img/logo.png)
 
 ## Installing
 
