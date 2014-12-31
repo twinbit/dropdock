@@ -63,7 +63,6 @@ class RoboFile extends \Robo\Tasks
      */
     public function symlink() {
       $this->taskFileSystemStack()
-       ->symlink('bin', 'data/var/www')
        ->symlink('data/var/www', 'www')
        ->run();
     }
