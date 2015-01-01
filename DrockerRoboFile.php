@@ -73,7 +73,7 @@ class RoboFile extends \Robo\Tasks
           foreach ($binaries as $bin => $opts) {
             $this->taskWriteToFile("bin/{$bin}")
                  ->line(isset($opts['env']) ? $opts['env'] : '#!/usr/bin/env bash')
-                 ->line("cd {$cwd} && fig run --rm {$container} {$bin} {$opts['arguments']}")
+                 ->line("cd {$cwd} && fig run --rm {$container} {$opts['bin']} {$opts['arguments']}")
                  ->run();
           }
         }
