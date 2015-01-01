@@ -1,6 +1,7 @@
 <?php
 include 'vendor/autoload.php';
 use Symfony\Component\Finder\Finder as Finder;
+use Symfony\Component\Yaml\Parser as Parser;
 
 /**
  * This is project's console commands configuration for the Drocker project.
@@ -33,7 +34,9 @@ class RoboFile extends \Robo\Tasks
      * Build the Drocker phar package
      */
     public function pharBuild() {
+      $yaml = new Parser();
       $packer = $this->taskPackPhar('drocker.phar');
+      // $packer->compress(TRUE);
       $this->taskComposerInstall()
             ->noDev()
             ->printed(false)
@@ -46,17 +49,16 @@ class RoboFile extends \Robo\Tasks
             ->path('php-src')
             ->path('vendor')
             ->notPath('data')
+            ->notPath('tmp')
             ->in(__DIR__);
       foreach ($files as $file) {
         $packer->addFile($file->getRelativePathname(), $file->getRealPath());
       }
 
-      // Add binaries.
+      // Add binaries yaml config.
       $files = Finder::create()->ignoreVCS(true)
            ->files()
-           ->path('src/bin')
-           ->notPath('data')
-           ->notPath('vendor')
+           ->name('binaries.yml')
            ->in(__DIR__);
       foreach ($files as $file) {
         $packer->addFile($file->getRelativePathname(), $file->getRealPath());

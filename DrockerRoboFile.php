@@ -1,6 +1,7 @@
 <?php
 
 use Symfony\Component\Finder\Finder as Finder;
+use Symfony\Component\Yaml\Parser as Parser;
 
 /**
  * This is project's console commands configuration for the Drocker cli tool.
@@ -33,9 +34,8 @@ class RoboFile extends \Robo\Tasks
            ->mkdir('bin')
            ->run();
 
-      // Copy static binaries.
-      $bin_dir = $base_path . '/src/bin/';
-      $this->taskMirrorDir([$bin_dir => 'bin/'])->run();
+      // Create static binaries.
+      $this->createBinaries();
 
       // Make binaries executables.
       $this->taskExec('chmod -R +x bin')->run();
@@ -54,8 +54,30 @@ class RoboFile extends \Robo\Tasks
        ->from('##LOCAL_GID##')
        ->to($gid)
        ->run();
+    }
 
-       // @todo replace binaries $PWD with the static path of the project.
+  /**
+   * Recreate containers binaries.
+   */
+    public function createBinaries() {
+      $yaml = new Parser();
+      $base_path = $this->getBasePath();
+      $cwd = getcwd();
+      $files = Finder::create()->ignoreVCS(true)
+           ->files()
+           ->name('binaries.yml')
+           ->in(__DIR__);
+      foreach ($files as $file) {
+        $binaries = $yaml->parse(file_get_contents($base_path . '/' . $file->getRelativePathname()));
+        foreach ($binaries as $container => $binaries) {
+          foreach ($binaries as $bin => $opts) {
+            $this->taskWriteToFile("bin/{$bin}")
+                 ->line(isset($opts['env']) ? $opts['env'] : '#!/usr/bin/env bash')
+                 ->line("cd {$cwd} && fig run --rm {$container} {$bin} {$opts['arguments']}")
+                 ->run();
+          }
+        }
+      }
     }
 
     /**
