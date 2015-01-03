@@ -19,9 +19,6 @@ nginx:
 php:
   image: twinbit/docker-drupal-php
   hostname: php
-  environment:
-    - LOCAL_UID=##LOCAL_UID##
-    - LOCAL_GID=##LOCAL_GID##
   links:
     - mysql
     - mailcatcher
