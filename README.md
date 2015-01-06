@@ -29,7 +29,11 @@ Just run `drocker init` in a empty folder to bootstrap a new drocker project:
 |   |-- cli
 |   |-- drush
 |   |-- mysql
-|   `-- phing
+|   |-- mysql_cli
+|   |-- mysql_create
+|   |-- mysql_import
+|   |-- phing
+|   `-- phpcs
 |-- data
 `-- fig.yml
 ```
@@ -37,7 +41,6 @@ Just run `drocker init` in a empty folder to bootstrap a new drocker project:
 (@TODO) Tweak `fig.yml` to match your needs and run `fig up -d` to run the containers.
 At the first run fig will download and build remote containers, it can takes several minutes.
 
-*TODO*
 
 ## Boot2docker configuration steps:
 
