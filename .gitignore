@@ -1,4 +1,5 @@
 /bin
+drocker
 drocker.phar
 /data
 fig.yml
@@ -6,3 +7,5 @@ src/github-repos
 vendor
 composer.lock
 tmp
+.vagrant
+Vagrantfile
