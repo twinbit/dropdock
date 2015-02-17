@@ -106,6 +106,8 @@ class RoboFile extends \Robo\Tasks
 
     /**
      * Configure NFS mount boot script.
+     *
+     * @todo this task needs to be explained better (fe: howto configure nfs exports locally).
      */
     public function boot2dockerNfsSetup()
     {
@@ -113,8 +115,9 @@ class RoboFile extends \Robo\Tasks
       $mount_boot_script = file_get_contents($base_path . '/src/scripts/boot2local.sh');
       $this->taskExecStack()
        ->stopOnFail(FALSE)
-       ->exec('boot2docker ssh "sudo rm /var/lib/boot2docker/bootlocal.sh && sudo touch /var/lib/boot2docker/bootlocal.sh"')
+       ->exec('boot2docker ssh "sudo rm -f /var/lib/boot2docker/bootlocal.sh && sudo touch /var/lib/boot2docker/bootlocal.sh"')
        ->exec('boot2docker ssh "echo \'' . $mount_boot_script . '\' | sudo tee -a /var/lib/boot2docker/bootlocal.sh" >/dev/null')
+       ->exec('boot2docker ssh "sudo chmod +x /var/lib/boot2docker/bootlocal.sh" > /dev/null')
        ->exec('boot2docker restart')
        ->run();
     }
