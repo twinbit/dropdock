@@ -4,14 +4,14 @@ use Symfony\Component\Finder\Finder as Finder;
 use Symfony\Component\Yaml\Parser as Parser;
 
 /**
- * This is project's console commands configuration for the Drocker project.
+ * This is project's console commands configuration for the Dropdock project.
  */
 class RoboFile extends \Robo\Tasks
 {
 
   public function release()
     {
-        $this->yell("Releasing Drocker");
+        $this->yell("Releasing Dropdock");
         $this->taskExecStack()
           ->stopOnFail()
           ->exec("git submodule update --init --recursive --remote")
@@ -22,8 +22,8 @@ class RoboFile extends \Robo\Tasks
             ->pull()
             ->push()
             ->run();
-        $this->taskGitHubRelease(\Twinbit\DrockerRunner::VERSION)
-            ->uri('twinbit/drocker')
+        $this->taskGitHubRelease(\Twinbit\DropdockRunner::VERSION)
+            ->uri('twinbit/dropdock')
             ->askDescription()
             ->run();
         $this->pharPublish();
@@ -31,11 +31,11 @@ class RoboFile extends \Robo\Tasks
     }
 
     /**
-     * Build the Drocker phar package
+     * Build the Dropdock phar package
      */
     public function pharBuild() {
       $yaml = new Parser();
-      $packer = $this->taskPackPhar('drocker.phar');
+      $packer = $this->taskPackPhar('dropdock.phar');
       // $packer->compress(TRUE);
       $this->taskComposerInstall()
             ->noDev()
@@ -64,16 +64,16 @@ class RoboFile extends \Robo\Tasks
         $packer->addFile($file->getRelativePathname(), $file->getRealPath());
       }
 
-      // Add drocker binary and make it as executable.
-      $packer->addFile('DrockerRoboFile.php', 'DrockerRoboFile.php');
+      // Add dropdock binary and make it as executable.
+      $packer->addFile('DropdockRoboFile.php', 'DropdockRoboFile.php');
       // Add fig.yml.
       $packer->addFile('fig.yml.dist', 'fig.yml.dist');
 
       // Add boot2local.sh script.
       $packer->addFile('src/scripts/boot2local.sh', 'src/scripts/boot2local.sh');
 
-      $packer->addFile('drocker', 'drocker')
-             ->executable('drocker')
+      $packer->addFile('dropdock', 'dropdock')
+             ->executable('dropdock')
              ->run();
       $this->taskComposerInstall()
            ->printed(false)
@@ -83,12 +83,12 @@ class RoboFile extends \Robo\Tasks
     public function pharPublish()
     {
         $this->pharBuild();
-        rename('drocker.phar', 'drocker-release.phar');
+        rename('dropdock.phar', 'dropdock-release.phar');
         $this->taskGitStack()->checkout('gh-pages')->run();
-        rename('drocker-release.phar', 'drocker.phar');
+        rename('dropdock-release.phar', 'dropdock.phar');
         $this->taskGitStack()
-            ->add('drocker.phar')
-            ->commit('drocker.phar published')
+            ->add('dropdock.phar')
+            ->commit('dropdock.phar published')
             ->push('origin','gh-pages')
             ->checkout('master')
             ->run();
@@ -97,12 +97,12 @@ class RoboFile extends \Robo\Tasks
     public function versionBump($version = null)
     {
         if (!$version) {
-            $versionParts = explode('.', \Twinbit\DrockerRunner::VERSION);
+            $versionParts = explode('.', \Twinbit\dropdockRunner::VERSION);
             $versionParts[count($versionParts)-1]++;
             $version = implode('.', $versionParts);
         }
-        $this->taskReplaceInFile(__DIR__.'/php-src/DrockerRunner.php')
-            ->from("VERSION = '".\Twinbit\DrockerRunner::VERSION."'")
+        $this->taskReplaceInFile(__DIR__.'/php-src/DropdockRunner.php')
+            ->from("VERSION = '".\Twinbit\dropdockRunner::VERSION."'")
             ->to("VERSION = '".$version."'")
             ->run();
     }

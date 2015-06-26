@@ -1,14 +1,14 @@
 {
-    "name": "twinbit/drocker",
+    "name": "twinbit/dropdock",
     "description": "Drupal docker environment",
     "license": "MIT",
     "authors": [
         {
             "name": "Paolo Mainardi",
-            "email": "paolo@twinbit.it"
+            "email": "paolo.mainardi@sparkfabrik.com"
         }
     ],
-    "bin":["drocker"],
+    "bin":["dropdock"],
     "autoload":{
         "psr-4":{
             "Twinbit\\":"php-src"

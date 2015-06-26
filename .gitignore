@@ -1,5 +1,5 @@
 /bin
-drocker.phar
+dropdock.phar
 /data
 fig.yml
 src/github-repos

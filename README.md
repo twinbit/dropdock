@@ -1,28 +1,28 @@
-# Drocker
+# Dropdock
 
-![Docker + Drupal](https://raw.githubusercontent.com/twinbit/drocker/gh-pages/img/logo.png)
+![Docker + Drupal](https://raw.githubusercontent.com/twinbit/dropdock/gh-pages/img/logo.png)
 
 ## Installing
 
 ### Phar
 
-[Download drocker.phar >](http://twinbit.github.io/drocker/drocker.phar)
+[Download dropdock.phar >](http://twinbit.github.io/dropdock/dropdock.phar)
 
 ```
-wget http://twinbit.github.io/drocker/drocker.phar
+wget http://twinbit.github.io/dropdock/dropdock.phar
 ```
 
-To install globally put `drocker.phar` in `/usr/bin`.
+To install globally put `dropdock.phar` in `/usr/bin`.
 
 ```
-sudo chmod +x drocker.phar && sudo mv drocker.phar /usr/bin/drocker
+sudo chmod +x dropdock.phar && sudo mv dropdock.phar /usr/bin/dropdock
 ```
 
-Now you can use it just like `drocker`.
+Now you can use it just like `dropdock`.
 
 ## Usage
 
-Just run `drocker init` in a empty folder to bootstrap a new drocker project:
+Just run `dropdock init` in a empty folder to bootstrap a new dropdock project:
 
 ```
 |-- bin
@@ -79,3 +79,16 @@ To fix it: Sublime Text > Preferences > Settings- User
 }
 ```
 
+## TODO
+
+- Move boot2local nfs configurations out of https://github.com/twinbit/dropdock-containers repository
+- Refactor dropdockRoboFile::boot2dockerNfsSetup() to handle better mount.nfs "fsc" options (Related to cachefilesd)
+- Create a custom iso tu automatically run the cachefilesd repository
+
+```
+FROM ubuntu:14.04
+MAINTAINER Paolo Mainardi "paolo@twinbit.it"
+ENV UPDATE_AT 1
+RUN apt-get update && apt-get -y install cachefilesd
+CMD /sbin/cachefilesd -n -f /etc/cachefilesd.conf -s
+```

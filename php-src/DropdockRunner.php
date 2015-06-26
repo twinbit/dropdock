@@ -13,15 +13,15 @@ use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 use Robo\Runner;
 
-class DrockerRunner extends \Robo\Runner {
+class DropdockRunner extends \Robo\Runner {
     use \Robo\Output;
-    const ROBOFILE = 'DrockerRoboFile.php';
-    const VERSION = '0.1.10';
+    const ROBOFILE = 'DropdockRoboFile.php';
+    const VERSION = '0.1.11';
     protected function loadRoboFile()
     {
         $base_path = realpath(__DIR__ . '/../');
         if (strpos(__FILE__, 'phar://') !== FALSE) {
-          $base_path = 'phar://drocker.phar';
+          $base_path = 'phar://dropdock.phar';
         }
         $conf_file = $base_path . '/' . self::ROBOFILE;
         if (!file_exists($conf_file)) {
@@ -39,7 +39,7 @@ class DrockerRunner extends \Robo\Runner {
     public function execute()
     {
         register_shutdown_function(array($this, 'shutdown'));
-        $app = new Application('Drocker', self::VERSION);
+        $app = new Application('Dropdock', self::VERSION);
 
         $loaded = $this->loadRoboFile();
         if (!$loaded) {

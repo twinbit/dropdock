@@ -4,7 +4,7 @@ use Symfony\Component\Finder\Finder as Finder;
 use Symfony\Component\Yaml\Parser as Parser;
 
 /**
- * This is project's console commands configuration for the Drocker cli tool.
+ * This is project's console commands configuration for the Dropdock cli tool.
  */
 class RoboFile extends \Robo\Tasks
 {
@@ -15,17 +15,17 @@ class RoboFile extends \Robo\Tasks
     {
       $base_path = getcwd();
       if (strpos(__DIR__, 'phar://') !== FALSE) {
-        $base_path = 'phar://drocker.phar';
+        $base_path = 'phar://dropdock.phar';
       }
       return $base_path;
     }
 
     /**
-     * Init drocker project.
+     * Init dropdock project.
      */
     public function init()
     {
-      $this->yell("Drocker init.");
+      $this->yell("Dropdock init.");
       $base_path = $this->getBasePath();
 
       // Create directory structure.
