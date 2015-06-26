@@ -1,7 +1,5 @@
 # Dropdock
 
-![Docker + Drupal](https://raw.githubusercontent.com/twinbit/dropdock/gh-pages/img/logo.png)
-
 ## Installing
 
 ### Phar
