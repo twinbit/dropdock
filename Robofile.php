@@ -6,7 +6,7 @@ use Symfony\Component\Yaml\Parser as Parser;
 /**
  * This is project's console commands configuration for the Dropdock project.
  */
-class RoboFile extends \Robo\Tasks
+class Robofile extends \Robo\Tasks
 {
 
   public function release()
@@ -33,7 +33,8 @@ class RoboFile extends \Robo\Tasks
     /**
      * Build the Dropdock phar package
      */
-    public function pharBuild() {
+    public function pharBuild()
+    {
       $yaml = new Parser();
       $packer = $this->taskPackPhar('dropdock.phar');
       // $packer->compress(TRUE);
@@ -66,8 +67,8 @@ class RoboFile extends \Robo\Tasks
 
       // Add dropdock binary and make it as executable.
       $packer->addFile('DropdockRoboFile.php', 'DropdockRoboFile.php');
-      // Add fig.yml.
-      $packer->addFile('fig.yml.dist', 'fig.yml.dist');
+      // Add docker-compose.yml.
+      $packer->addFile('docker-compose.yml.dist', 'docker-compose.yml.dist');
 
       // Add boot2local.sh script.
       $packer->addFile('src/scripts/boot2local.sh', 'src/scripts/boot2local.sh');
