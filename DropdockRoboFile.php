@@ -17,6 +17,7 @@ class RoboFile extends \Robo\Tasks
       if (strpos(__DIR__, 'phar://') !== FALSE) {
         $base_path = 'phar://dropdock.phar';
       }
+
       return $base_path;
     }
 
@@ -40,17 +41,17 @@ class RoboFile extends \Robo\Tasks
       // Make binaries executables.
       $this->taskExec('chmod -R +x bin')->run();
 
-      // Rename fig.yml.dist to fig.yml
+      // Rename fig.yml.dist to docker-compose.yml
       $this->taskFileSystemStack()
-           ->copy($base_path . '/fig.yml.dist', 'fig.yml')
+           ->copy($base_path . '/docker-compose.yml.dist', 'docker-compose.yml')
            ->run();
       $uid = trim($this->taskExec('id -u')->run()->getMessage());
       $gid = trim($this->taskExec('id -g')->run()->getMessage());
-      $this->taskReplaceInFile('fig.yml')
+      $this->taskReplaceInFile('docker-compose.yml')
        ->from('##LOCAL_UID##')
        ->to($uid)
        ->run();
-      $this->taskReplaceInFile('fig.yml')
+      $this->taskReplaceInFile('docker-compose.yml')
        ->from('##LOCAL_GID##')
        ->to($gid)
        ->run();
@@ -59,7 +60,8 @@ class RoboFile extends \Robo\Tasks
   /**
    * Recreate containers binaries.
    */
-    public function createBinaries() {
+    public function createBinaries()
+    {
       $yaml = new Parser();
       $base_path = $this->getBasePath();
       $cwd = getcwd();
@@ -73,7 +75,7 @@ class RoboFile extends \Robo\Tasks
           foreach ($binaries as $bin => $opts) {
             $this->taskWriteToFile("bin/{$bin}")
                  ->line(isset($opts['env']) ? $opts['env'] : '#!/usr/bin/env bash')
-                 ->line("cd {$cwd} && fig run --rm {$container} {$opts['bin']} {$opts['arguments']}")
+                 ->line("cd {$cwd} && docker-compose run --rm {$container} {$opts['bin']} {$opts['arguments']}")
                  ->run();
           }
         }
@@ -83,7 +85,8 @@ class RoboFile extends \Robo\Tasks
     /**
      * Symlink www and bin folders.
      */
-    public function symlink() {
+    public function symlink()
+    {
       $this->taskFileSystemStack()
        ->symlink('data/var/www', 'www')
        ->run();

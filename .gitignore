@@ -1,7 +1,8 @@
 /bin
 dropdock.phar
 /data
-fig.yml
+docker-compose.yml
+docker-compose.yml.dev
 src/github-repos
 vendor
 composer.lock

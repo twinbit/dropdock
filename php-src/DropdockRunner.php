@@ -16,7 +16,7 @@ use Robo\Runner;
 class DropdockRunner extends \Robo\Runner {
     use \Robo\Output;
     const ROBOFILE = 'DropdockRoboFile.php';
-    const VERSION = '0.1.12';
+    const VERSION = '0.1.13';
     protected function loadRoboFile()
     {
         $base_path = realpath(__DIR__ . '/../');
